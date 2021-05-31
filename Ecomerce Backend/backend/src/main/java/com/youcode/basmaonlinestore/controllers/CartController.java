@@ -23,15 +23,15 @@ import java.util.Collections;
 @RequestMapping("/cart")
 public class CartController {
     @Autowired
-    CartService cartService;
+    private CartService cartService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    ProductInOrderService productInOrderService;
+    private ProductInOrderService productInOrderService;
     @Autowired
-    ProductInOrderRepository productInOrderRepository;
+    private ProductInOrderRepository productInOrderRepository;
 
     @PostMapping("")
     public ResponseEntity<Cart> mergeCart(@RequestBody Collection<ProductInOrder> productInOrders, Principal principal) {
@@ -49,7 +49,6 @@ public class CartController {
         User user = userService.findOne(principal.getName());
         return cartService.getCart(user);
     }
-
 
     @PostMapping("/add")
     public boolean addToCart(@RequestBody ItemForm form, Principal principal) {
@@ -73,7 +72,6 @@ public class CartController {
     public void deleteItem(@PathVariable("itemId") String itemId, Principal principal) {
         User user = userService.findOne(principal.getName());
          cartService.delete(itemId, user);
-         // flush memory into DB
     }
 
 
@@ -83,6 +81,5 @@ public class CartController {
         cartService.checkout(user);
         return ResponseEntity.ok(null);
     }
-
 
 }

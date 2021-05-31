@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @EnableWebSecurity
 @DependsOn("passwordEncoder")
