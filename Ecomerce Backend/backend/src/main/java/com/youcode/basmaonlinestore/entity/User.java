@@ -45,8 +45,6 @@ public class User implements Serializable {
     private Cart cart;
 
 
-
-
     @Override
     public String toString() {
         return "User{" +

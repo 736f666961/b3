@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @DependsOn("passwordEncoder")
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     JwtFilter jwtFilter;

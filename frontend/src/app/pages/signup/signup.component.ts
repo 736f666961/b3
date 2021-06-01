@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
                private userService: UserService,
                private router: Router) {
     this.user = new User();
-
+      
   }
 
 
@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.userService.signUp(this.user).subscribe(u => {
       this.router.navigate(['/login']);
+      console.log(this.user);
     },
         e => {});
   }

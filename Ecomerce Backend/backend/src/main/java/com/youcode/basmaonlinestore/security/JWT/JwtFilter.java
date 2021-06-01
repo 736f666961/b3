@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProvider jwtProvider;
+
     @Autowired
     private UserService userService;
 
