@@ -25,7 +25,6 @@ public class ProductController {
     /**
      * Show All Categories
      */
-
     @GetMapping("/product")
     public Page<ProductInfo> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                      @RequestParam(value = "size", defaultValue = "3") Integer size) {

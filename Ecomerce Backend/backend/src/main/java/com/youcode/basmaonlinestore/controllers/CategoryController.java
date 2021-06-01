@@ -19,7 +19,6 @@ public class CategoryController {
     @Autowired
     ProductService productService;
 
-
     /**
      * Show products in category
      *

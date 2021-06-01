@@ -5,6 +5,7 @@ import com.youcode.basmaonlinestore.entity.OrderMain;
 import com.youcode.basmaonlinestore.entity.ProductInOrder;
 import com.youcode.basmaonlinestore.service.OrderService;
 import com.youcode.basmaonlinestore.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,11 +19,9 @@ import java.util.Collection;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 public class OrderController {
-    @Autowired
-    OrderService orderService;
-    @Autowired
-    UserService userService;
+    private final OrderService orderService;
 
     @GetMapping("/order")
     public Page<OrderMain> orderList(@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -37,7 +36,6 @@ public class OrderController {
         }
         return orderPage;
     }
-
 
     @PatchMapping("/order/cancel/{id}")
     public ResponseEntity<OrderMain> cancel(@PathVariable("id") Long orderId, Authentication authentication) {
@@ -54,6 +52,7 @@ public class OrderController {
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
         return ResponseEntity.ok(orderService.finish(orderId));
     }
 

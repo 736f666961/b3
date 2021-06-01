@@ -49,6 +49,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void mergeLocalCart(Collection<ProductInOrder> productInOrders, User user) {
         Cart finalCart = user.getCart();
+
         productInOrders.forEach(productInOrder -> {
             Set<ProductInOrder> set = finalCart.getProducts();
             Optional<ProductInOrder> old = set.stream().filter(e -> e.getProductId().equals(productInOrder.getProductId())).findFirst();
@@ -65,7 +66,6 @@ public class CartServiceImpl implements CartService {
         });
 
         cartRepository.save(finalCart);
-
     }
 
     @Override

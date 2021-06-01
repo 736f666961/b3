@@ -5,6 +5,7 @@ import com.youcode.basmaonlinestore.security.JWT.JwtProvider;
 import com.youcode.basmaonlinestore.service.UserService;
 import com.youcode.basmaonlinestore.req_res.request.LoginForm;
 import com.youcode.basmaonlinestore.req_res.response.JwtResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +21,14 @@ import java.security.Principal;
 
 @CrossOrigin
 @RestController
+@RequiredArgsConstructor
 public class UserController {
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    JwtProvider jwtProvider;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JwtProvider jwtProvider;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody LoginForm loginForm) {
-        // throws Exception if authentication failed
 
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -51,7 +46,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<User> save(@RequestBody User user) {

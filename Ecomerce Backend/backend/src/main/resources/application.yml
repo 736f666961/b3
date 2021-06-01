@@ -12,14 +12,13 @@ spring:
     show-sql: false
 #    generate-ddl: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       database: postgresql
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false;
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-  #      dialect: org.hibernate.dialect.MySQL5Dialect
 
   queries:
     users-query: select email, password, active from users where email=?

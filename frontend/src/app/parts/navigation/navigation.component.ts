@@ -12,7 +12,6 @@ import {Role} from "../../enum/Role";
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
-
     currentUserSubscription: Subscription;
     name$;
     name: string;

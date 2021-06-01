@@ -1,6 +1,5 @@
 package com.youcode.basmaonlinestore.controllers;
 
-
 import com.youcode.basmaonlinestore.entity.ProductInOrder;
 import com.youcode.basmaonlinestore.entity.User;
 import com.youcode.basmaonlinestore.form.ItemForm;
@@ -10,6 +9,7 @@ import com.youcode.basmaonlinestore.service.CartService;
 import com.youcode.basmaonlinestore.service.ProductInOrderService;
 import com.youcode.basmaonlinestore.service.ProductService;
 import com.youcode.basmaonlinestore.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,26 +21,24 @@ import java.util.Collections;
 @CrossOrigin
 @RestController
 @RequestMapping("/cart")
+@RequiredArgsConstructor
 public class CartController {
-    @Autowired
-    private CartService cartService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private ProductInOrderService productInOrderService;
-    @Autowired
-    private ProductInOrderRepository productInOrderRepository;
+    private final CartService cartService;
+    private final UserService userService;
+    private final ProductService productService;
+    private final ProductInOrderService productInOrderService;
+    private final ProductInOrderRepository productInOrderRepository;
 
     @PostMapping("")
     public ResponseEntity<Cart> mergeCart(@RequestBody Collection<ProductInOrder> productInOrders, Principal principal) {
         User user = userService.findOne(principal.getName());
+
         try {
             cartService.mergeLocalCart(productInOrders, user);
         } catch (Exception e) {
             ResponseEntity.badRequest().body("Merge Cart Failed");
         }
+
         return ResponseEntity.ok(cartService.getCart(user));
     }
 
@@ -73,7 +71,6 @@ public class CartController {
         User user = userService.findOne(principal.getName());
          cartService.delete(itemId, user);
     }
-
 
     @PostMapping("/checkout")
     public ResponseEntity checkout(Principal principal) {
